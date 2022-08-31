@@ -102,8 +102,8 @@ async function listEvents(auth) {
 
 app.get('/', (req, res) => {
     //res.send('Hello World!')
-    res.send(eventsContent)
     authorize().then(listEvents).catch(console.error);
+    res.send(eventsContent)
 })
 
 app.listen(port, () => {
