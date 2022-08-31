@@ -57,6 +57,7 @@ async function authorize() {
   if (client) {
     return client;
   }
+  // if the user didn't authenticate it runs this code
   client = await authenticate({
     scopes: SCOPES,
     keyfilePath: CREDENTIALS_PATH,
