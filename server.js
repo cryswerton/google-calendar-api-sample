@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 5555
+let eventsContent = ""
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -90,17 +91,19 @@ async function listEvents(auth) {
     console.log('No upcoming events found.');
     return;
   }
-  console.log('Upcoming 10 events:');
+  console.log('Upcoming 10 events:'); 
   events.map((event, i) => {
     const start = event.start.dateTime || event.start.date;
     console.log(`${start} - ${event.summary}`);
+    eventsContent = eventsContent + `${start} - ${event.summary}`
   });
 }
 
-authorize().then(listEvents).catch(console.error);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+    //res.send('Hello World!')
+    res.send(eventsContent)
+    authorize().then(listEvents).catch(console.error);
 })
 
 app.listen(port, () => {
